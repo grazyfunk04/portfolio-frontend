@@ -11,8 +11,11 @@ const StockUpdate = ({stock, onSubmit, onClose}) => {
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleAdd = () => {
-    if (stock) updateStock(stock.id, form).then(onSubmit);
+    if (stock) {
+      updateStock(stock.id, form).then(onSubmit);
+    }
     else addStock(form).then(onSubmit);
+    setForm({name: "", ticker: "", quantity: 1, buyPrice: 0});
   };
 
   const handleCancel = () => {
@@ -79,8 +82,10 @@ const StockForm = ({ stock, onSubmit }) => {
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleAdd = () => {
-    if (stock) updateStock(stock.id, form).then(onSubmit);
+    if (stock) {updateStock(stock.id, form).then(onSubmit);
+    }
     else addStock(form).then(onSubmit);
+    setForm({name: "", ticker: "", quantity: 1, buyPrice: 0});
   };
 
   const handleCancel = () => {

@@ -36,7 +36,7 @@ const Portfolio = () => {
                 method: "GET",
                 url: `https://yahoo-finance166.p.rapidapi.com/api/stock/get-price?symbol=${ticker}`,
                 headers: {
-                    "X-RapidAPI-Key": "c4f5af5f13mshe6cce22e4efdf45p14312ajsnd24ce414a27e",
+                    "X-RapidAPI-Key": "5f9a5759f0msh6ab03bec39e64f2p10ac52jsnd631dfe67d2d",
                     "X-RapidAPI-Host": "yahoo-finance166.p.rapidapi.com",
                 },
             };

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Signup from './components/Signup';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
+import LandingPage from './components/LandingPage';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,7 +33,7 @@ const App = () => {
           />
           <Route
             path="/"
-            element={isLoggedIn ? <Navigate to="/dashboard" /> : <Navigate to="/login" />}
+            element={isLoggedIn ? <Navigate to="/dashboard" /> : <LandingPage/>}
           />
         </Routes>
       </div>
