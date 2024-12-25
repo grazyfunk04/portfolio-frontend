@@ -16,7 +16,7 @@ const Dashboard = () => {
         method: "GET",
         url: `https://yahoo-finance166.p.rapidapi.com/api/stock/get-price?symbol=${ticker}`,
         headers: {
-          "X-RapidAPI-Key": "c4f5af5f13mshe6cce22e4efdf45p14312ajsnd24ce414a27e",
+          "X-RapidAPI-Key": "a9f74e8f90msh2f8b94c5ff40d9ap10ea68jsn2b7f60ca0a2c",
           "X-RapidAPI-Host": "yahoo-finance166.p.rapidapi.com",
         },
       };
