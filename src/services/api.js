@@ -8,12 +8,12 @@ const apiClient = axios.create({
 
 apiClient.interceptors.request.use(
   (config) => {
-    const userId = localStorage.getItem("userId");
+    const token = localStorage.getItem("authToken");
 
-    if (userId) {
-      config.headers['X-User-Id'] = userId;
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
     } else {
-      console.warn('User ID is missing. Ensure the user is authenticated.');
+      console.warn('No auth token found, please log in.');
     }
 
     return config;
@@ -27,5 +27,5 @@ export const getStocks = () => apiClient.get('/stocks');
 export const addStock = (stock) => apiClient.post('/stocks', stock);
 export const updateStock = (id, stock) => apiClient.put(`/stocks/${id}`, stock);
 export const deleteStock = (id) => apiClient.delete(`/stocks/${id}`);
-export const getMetrics = () => apiClient.get('/portfolio/metrics');
+export const getPortfolioMetrics = () => apiClient.get('/stocks/portfolio-value');
 export const getDashboard = () => apiClient.get('/stocks/dashboard');

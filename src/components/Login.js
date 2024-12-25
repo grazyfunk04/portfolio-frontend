@@ -13,23 +13,21 @@ const Login = ({ setIsLoggedIn }) => {
     try {
       const userData = { email, password };
       const response = await login(userData);
-  
+    
       console.log("Login response:", response);
-  
-      if (response && response.status === "success") {
-        const { id, username, email } = response.data; 
-        localStorage.setItem("userId", id);
-        localStorage.setItem("username", username);
-        localStorage.setItem("email", email);
-  
+    
+      if (response && response.token) {
+        const { token } = response;
+        localStorage.setItem('authToken', token);
+    
         alert("Login Successful");
-  
+    
         localStorage.setItem("isLoggedIn", true);
-  
+    
         setIsLoggedIn(true);
         navigate("/dashboard");
       } else {
-        console.error("Response status is not success:", response);
+        console.error("Response does not contain token:", response);
         alert("Error: Login failed. Please check your credentials.");
       }
     } catch (error) {
@@ -37,9 +35,9 @@ const Login = ({ setIsLoggedIn }) => {
       alert("Invalid credentials");
     }
   };
+  
 
   return (
-
     <>
       <div className="flex items-center p-2 justify-center">
           <img src={image} width={140} height={140}/>
