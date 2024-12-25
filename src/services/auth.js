@@ -44,6 +44,8 @@ import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_AUTH_URL;
 
+// adding comment here 
+
 export const signup = async (userData) => {
     try {
         const response = await axios.post(`${API_URL}/signup`, userData, {
