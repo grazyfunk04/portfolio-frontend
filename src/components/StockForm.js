@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { addStock, updateStock, deleteStock, getStocks } from "../services/api";
 import Modal from "./Modal";
 
-const StockUpdate = ({stock, onSubmit, onClose}) => {
+const StockUpdate = ({ stock, onSubmit, onClose }) => {
   const [form, setForm] = useState(
     stock || { name: "", ticker: "", quantity: 1, buyPrice: 0 }
   );
@@ -12,10 +12,10 @@ const StockUpdate = ({stock, onSubmit, onClose}) => {
 
   const handleAdd = () => {
     if (stock) {
-      updateStock(stock.id, form).then(onSubmit);
+      updateStock(stock._id, form).then(onSubmit);
     }
     else addStock(form).then(onSubmit);
-    setForm({name: "", ticker: "", quantity: 1, buyPrice: 0});
+    setForm({ name: "", ticker: "", quantity: 1, buyPrice: 0 });
   };
 
   const handleCancel = () => {
@@ -82,10 +82,11 @@ const StockForm = ({ stock, onSubmit }) => {
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleAdd = () => {
-    if (stock) {updateStock(stock.id, form).then(onSubmit);
+    if (stock) {
+      updateStock(stock._id, form).then(onSubmit);
     }
     else addStock(form).then(onSubmit);
-    setForm({name: "", ticker: "", quantity: 1, buyPrice: 0});
+    setForm({ name: "", ticker: "", quantity: 1, buyPrice: 0 });
   };
 
   const handleCancel = () => {
@@ -152,7 +153,7 @@ const StockList = ({ stocks, onEdit, onDelete }) => {
       <ul className="divide-y divide-gray-200">
         {stocks.map((stock) => (
           <li
-            key={stock.id}
+            key={stock._id}
             className="flex justify-between items-center py-2 px-4 hover:bg-gray-50"
           >
             <div>
@@ -173,7 +174,7 @@ const StockList = ({ stocks, onEdit, onDelete }) => {
                 Edit
               </div>
               <button
-                onClick={() => onDelete(stock.id)}
+                onClick={() => onDelete(stock._id)}
                 className="text-white cursor-pointer bg-red-500 py-2 px-5 rounded-lg"
               >
                 Delete
@@ -189,7 +190,7 @@ const StockList = ({ stocks, onEdit, onDelete }) => {
 const StockManager = () => {
   const [stocks, setStocks] = useState([]);
   const [selectedStock, setSelectedStock] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     refreshStocks();
@@ -207,7 +208,9 @@ const StockManager = () => {
   const handleUpdate = () => {
     refreshStocks();
     setIsModalOpen(false);
+    setSelectedStock(null);
   };
+
 
   const handleEdit = (stock) => {
     setSelectedStock(stock);
@@ -218,7 +221,7 @@ const StockManager = () => {
     deleteStock(id).then(refreshStocks);
   };
 
-  const handleClose = ()=>{
+  const handleClose = () => {
     setIsModalOpen(false);
   }
 
@@ -226,9 +229,14 @@ const StockManager = () => {
     <div className="flex gap-6 p-6 bg-gray-100 min-h-screen">
       <StockForm stock={selectedStock} onSubmit={handleAdd} />
       <StockList stocks={stocks} onEdit={handleEdit} onDelete={handleDelete} />
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <StockUpdate stock={selectedStock} onSubmit={handleUpdate} onClose={handleClose} />
+      <Modal isOpen={isModalOpen} onClose={handleClose}>
+        <StockUpdate
+          stock={selectedStock}
+          onSubmit={handleUpdate}
+          onClose={handleClose}
+        />
       </Modal>
+
     </div>
   );
 };

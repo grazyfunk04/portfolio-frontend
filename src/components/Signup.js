@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { signup } from "../services/auth";
 import { useNavigate } from "react-router-dom";
-import image from '../image.png'
+import { toast } from "react-toastify";
+import image from '../image.png';
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -14,19 +15,25 @@ const Signup = () => {
     try {
       const userData = { username, email, password };
       const response = await signup(userData);
-      alert("Signup Successful: " + response);
-      navigate("/login");
+
+      console.log(response);
+      toast.success("Signup successful! Redirecting to login...");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 5000);
     } catch (error) {
       console.error("Error during signup", error);
-      alert("Signup failed: " + error);
+
+      toast.error("Signup failed: " + (error.response?.data?.message || error.message));
     }
   };
 
   return (
     <>
       <div className="flex items-center p-2 justify-center">
-          <img src={image} width={140} height={140}/>
-          <h1 className="text-4xl font-bold" style={{fontFamily: 'Poppins'}}>Stocks Byte</h1>
+        <img src={image} width={140} height={140} alt="Logo" />
+        <h1 className="text-4xl font-bold" style={{ fontFamily: 'Poppins' }}>Stocks Byte</h1>
       </div>
       <div className="min-h-screen flex justify-center items-center -mt-36 ml-8">
         <div className="p-8 bg-white shadow-lg rounded-lg w-96">

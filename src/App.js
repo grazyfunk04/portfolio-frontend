@@ -4,6 +4,8 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
 import LandingPage from './components/LandingPage';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,28 +18,31 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <div>
-        <Routes>
-          <Route
-            path="/signup"
-            element={isLoggedIn ? <Navigate to="/dashboard" /> : <Signup />}
-          />
-          <Route
-            path="/login"
-            element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login setIsLoggedIn={setIsLoggedIn} />}
-          />
-          <Route
-            path="/dashboard"
-            element={isLoggedIn ? <Navbar setIsLoggedIn={setIsLoggedIn} /> : <Navigate to="/login" />}
-          />
-          <Route
-            path="/"
-            element={isLoggedIn ? <Navigate to="/dashboard" /> : <LandingPage/>}
-          />
-        </Routes>
-      </div>
-    </Router>
+    <>
+      <ToastContainer />
+      <Router>
+        <div>
+          <Routes>
+            <Route
+              path="/signup"
+              element={isLoggedIn ? <Navigate to="/dashboard" /> : <Signup />}
+            />
+            <Route
+              path="/login"
+              element={isLoggedIn ? <Navigate to="/dashboard" /> : <Login setIsLoggedIn={setIsLoggedIn} />}
+            />
+            <Route
+              path="/dashboard"
+              element={isLoggedIn ? <Navbar setIsLoggedIn={setIsLoggedIn} /> : <Navigate to="/login" />}
+            />
+            <Route
+              path="/"
+              element={isLoggedIn ? <Navigate to="/dashboard" /> : <LandingPage/>}
+            />
+          </Routes>
+        </div>
+      </Router>
+    </>
   );
 };
 
